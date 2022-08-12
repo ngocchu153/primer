@@ -21,5 +21,7 @@ export default function handler(
     }
   }
 
-  return res.status(500).json({ message: 'Internal Server Error!', statusCode: 500 });
+  return res
+    .status(500)
+    .json({ message: 'Internal Server Error!', statusCode: 500 });
 }
