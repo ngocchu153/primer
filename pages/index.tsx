@@ -10,7 +10,7 @@ export default function Home() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (event) => setValue(event?.target?.value);
+  const handleChange = (event: any) => setValue(event?.target?.value);
   const findHighestPrimer = async () => {
     setLoading(true);
     setError('');
@@ -19,7 +19,7 @@ export default function Home() {
       const resJson = (await res.json()) as MinimalData;
       const { result } = resJson;
       setResult(result as number);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
