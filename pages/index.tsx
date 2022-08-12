@@ -1,11 +1,10 @@
 import Head from 'next/head';
-
 import { useState } from 'react';
 import { request } from 'utils';
 import { ApiError } from 'next/dist/server/api-utils';
 
 export default function Home() {
-  const [value, setValue] = useState(2);
+  const [value, setValue] = useState<number>();
   const [result, setResult] = useState(0);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -36,16 +35,18 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="m-0 text-6xl text-center">Welcome to Primer!</h1>
+        <h1 className="m-0 text-center text-6xl">Welcome to Primer!</h1>
 
-        <p className="text-center text-xl my-4">
+        <p className="my-4 text-center text-xl">
           Find the highest prime number lower than the input number below
         </p>
 
         <div className="flex flex-col items-center">
           <div className="">
             <input
-              className="rounded border"
+              className="rounded border px-1"
+              placeholder="Your number"
+              autoFocus
               type="number"
               value={value}
               onChange={handleChange}
@@ -60,8 +61,8 @@ export default function Home() {
               Find!
             </button>
           </div>
-          {result > 0 && <div className='mt-2'>Result: {result}</div>}
-          {error && <div className="text-red-500 mt-2">Error: {error}</div>}
+          {result > 0 && <div className="mt-2">Result: {result}</div>}
+          {error && <div className="mt-2 text-red-500">Error: {error}</div>}
         </div>
       </main>
     </div>

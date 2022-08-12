@@ -3,29 +3,39 @@
 exports[`renders homepage unchanged 1`] = `
 <div>
   <div
-    class="container"
+    class="flex min-h-screen flex-col items-center justify-center px-0 py-2"
   >
     <main>
       <h1
-        class="title"
+        class="m-0 text-center text-6xl"
       >
         Welcome to Primer!
       </h1>
       <p
-        class="description"
+        class="my-4 text-center text-xl"
       >
         Find the highest prime number lower than the input number below
       </p>
-      <div>
-        <input
-          max="9007199254740991"
-          min="2"
-          type="number"
-          value="2"
-        />
-        <button>
-          Find!
-        </button>
+      <div
+        class="flex flex-col items-center"
+      >
+        <div
+          class=""
+        >
+          <input
+            class="rounded border px-1"
+            max="9007199254740991"
+            min="2"
+            placeholder="Your number"
+            type="number"
+            value=""
+          />
+          <button
+            class="ml-4 rounded border px-2"
+          >
+            Find!
+          </button>
+        </div>
       </div>
     </main>
   </div>
