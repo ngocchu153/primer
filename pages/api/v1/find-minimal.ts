@@ -1,5 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { isPrime } from "utils";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { isPrime } from 'utils';
 
 export type MinimalData = {
   result?: number;
@@ -14,12 +14,12 @@ export default function handler(
   const number = parseInt(inputNumber as string, 10);
 
   if (!number) {
-    res.status(400).json({ message: "invalid input" });
+    res.status(400).json({ message: 'invalid input' });
   }
 
   if (!number || !isFinite(number) || number < 2 || number > 9007199254740991) {
     res.status(400).json({
-      message: "This program only support input from 2 to 9007199254740991",
+      message: 'This program only support input from 2 to 9007199254740991',
     });
   }
 
@@ -29,5 +29,5 @@ export default function handler(
     }
   }
 
-  res.status(500).json({ message: "unhandled error" });
+  res.status(500).json({ message: 'unhandled error' });
 }
