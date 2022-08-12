@@ -2,7 +2,8 @@ import Head from 'next/head';
 
 import styles from '@/pages/index.module.css';
 import { useState } from 'react';
-import { MinimalData } from './api/v1/find-minimal';
+import request from 'utils/request';
+import { ApiError } from 'next/dist/server/api-utils';
 
 export default function Home() {
   const [value, setValue] = useState(2);
@@ -15,11 +16,12 @@ export default function Home() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`/api/v1/find-minimal?inputNumber=${value}`);
-      const resJson = (await res.json()) as MinimalData;
-      const { result } = resJson;
-      setResult(result as number);
-    } catch (err: any) {
+      const { data } = (await request(
+        `/api/v1/find-minimal?inputNumber=${value}`
+      )) as models.ApiResponse<number>;
+      setResult(data!);
+    } catch (e) {
+      const err = e as ApiError;
       setError(err.message);
     } finally {
       setLoading(false);
