@@ -39,7 +39,7 @@ exports[`renders homepage unchanged 1`] = `
           </button>
         </div>
         <div
-          class="invisible"
+          class="text-xs invisible"
         >
           Error: 
         </div>

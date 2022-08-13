@@ -62,9 +62,9 @@ export default function Home() {
               onClick={findHighestPrimer}
             >
               Find!
-            </button>
+          </button>
           </div>
-          <div className={error ? 'text-red-500 text-xs' : 'invisible'}>Error: {error}</div>
+          <div className={error ? 'text-red-500 text-xs' : 'text-xs invisible'}>Error: {error}</div>
         </div>
       </main>
     </div>
