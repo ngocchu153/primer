@@ -1,35 +1,24 @@
+type ParsedResponse<T = undefined> = {
+  status: number;
+  data: models.ApiResponse<T>;
+};
+
 /**
  * Parses the JSON returned by a network request
  *
- * @param  {object} response A response from a network request
+ * @param  {Response} response A response from a network request
  *
- * @return {object}          The parsed JSON from the request
+ * @return {Promise<ParsedResponse>}          The parsed JSON from the request
  */
-function parseJSON(response: Response) {
-  if (response.status === 204 || response.status === 205) {
-    return null;
-  }
-
-  if (response.headers.get('Content-Type') === 'text/csv;charset=utf-8') {
-    return response.text();
-  }
-
-  return response.json();
-}
-
-/**
- * Checks if a network request came back fine, and throws an error if not
- *
- * @param  {object} response   A response from a network request
- *
- * @return {object} Returns either the response, or throws an error
- */
-function checkStatus(response: models.ApiResponse<any>) {
-  if (response.statusCode < 400) {
-    return response;
-  }
-
-  throw Error(response.message);
+function parseJSON(response: Response): Promise<ParsedResponse> {
+  return new Promise((resolve) =>
+    response.json().then((json: models.ApiResponse) =>
+      resolve({
+        status: response.status,
+        data: json,
+      })
+    )
+  );
 }
 
 /**
@@ -38,8 +27,22 @@ function checkStatus(response: models.ApiResponse<any>) {
  * @param  {string} url       The URL we want to request
  * @param  {object} [options] The options we want to pass to "fetch"
  *
- * @return {object}           The response data
+ * @return {Promise<void | models.ApiResponse<any>} The response data
  */
 export default function request(url: string, options?: RequestInit) {
-  return fetch(url, options).then(parseJSON).then(checkStatus);
+  return new Promise((resolve, reject) => {
+    fetch(url, options)
+      .then(parseJSON)
+      .then((response) => {
+        if (response.status < 400) {
+          return resolve(response.data);
+        }
+        return reject(response.data);
+      })
+      .catch((error) =>
+        reject({
+          networkError: error.message,
+        })
+      );
+  });
 }

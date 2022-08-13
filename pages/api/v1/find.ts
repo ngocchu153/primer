@@ -11,7 +11,6 @@ export default function handler(
   console.log(`Input number: ${number}`);
   if (!number || number < 2 || number > 9007199254740991) {
     return res.status(400).json({
-      statusCode: 400,
       message:
         'This program only support input from 3 to 9007199254740991 (2^53 - 1)',
     });
@@ -23,7 +22,7 @@ export default function handler(
     if (data > 0) {
       console.log(`Found in seive: ${data}`);
       res.setHeader('Cache-control', 'public, max-age=31536000');
-      return res.status(200).json({ data, statusCode: 200 });
+      return res.status(200).json({ data });
     }
   }
 
@@ -31,11 +30,10 @@ export default function handler(
   const data = findLargestPrime(number);
   if (data > 0) {
     res.setHeader('Cache-control', 'public, max-age=31536000');
-    return res.status(200).json({ data, statusCode: 200 });
+    return res.status(200).json({ data });
   }
 
   return res.status(404).json({
-    statusCode: 404,
     message: `Not found highest prime number less than ${number}!`,
   });
 }
