@@ -6,9 +6,9 @@
  * @return {boolean} The result
  */
 function isPrime(n: number): boolean {
-  if (isNotPrime(n)) return false;
+  if (isObviouslyNotPrime(n)) return false;
 
-  for (let i = 2; i * i <= n; ++i) {
+  for (let i = 2; i <= n / i; i++) {
     if (n % i == 0) {
       return false;
     }
@@ -23,7 +23,7 @@ function isPrime(n: number): boolean {
  *
  * @return {boolean} The result
  */
-function isNotPrime(n: number): boolean {
+function isObviouslyNotPrime(n: number): boolean {
   if (n > 5) {
     const lastDigit = n % 10;
     if (lastDigit === 5 || lastDigit % 2 === 0) {
@@ -49,4 +49,4 @@ function findLargestPrime(lessThan: number): number {
   return -1;
 }
 
-export { isPrime, isNotPrime, findLargestPrime };
+export { isPrime, isObviouslyNotPrime, findLargestPrime };

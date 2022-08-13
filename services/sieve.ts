@@ -1,4 +1,4 @@
-import { isNotPrime } from 'utils';
+import { isObviouslyNotPrime } from 'utils';
 
 export class SieveService {
   private sieve: Array<boolean>;
@@ -38,7 +38,7 @@ export class SieveService {
       return -1;
     }
     for (let i = lessThan; i >= 2; i--) {
-      if (isNotPrime(i)) continue;
+      if (isObviouslyNotPrime(i)) continue;
       if (this.sieve[i] === true) return i;
     }
     return -1;

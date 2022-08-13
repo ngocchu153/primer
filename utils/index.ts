@@ -1,4 +1,4 @@
-import { isPrime, isNotPrime, findLargestPrime } from './prime';
+import { isPrime, isObviouslyNotPrime, findLargestPrime } from './prime';
 import request from './request';
 
-export { isPrime, request, isNotPrime, findLargestPrime };
+export { isPrime, request, isObviouslyNotPrime, findLargestPrime };
