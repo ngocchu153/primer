@@ -22,7 +22,7 @@ function parseJSON(response: Response) {
  *
  * @param  {object} response   A response from a network request
  *
- * @return {object|undefined} Returns either the response, or throws an error
+ * @return {object} Returns either the response, or throws an error
  */
 function checkStatus(response: models.ApiResponse<any>) {
   if (response.statusCode < 400) {

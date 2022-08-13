@@ -1,24 +1,25 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { request } from 'utils';
 import { ApiError } from 'next/dist/server/api-utils';
 
 export default function Home() {
   const [value, setValue] = useState<number>();
-  const [result, setResult] = useState(0);
+  const [result, setResult] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (event: any) => setValue(event?.target?.value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setValue(event.target.value as unknown as number);
+
   const findHighestPrimer = async () => {
     setLoading(true);
     setError('');
-    setResult(0);
     try {
       const { data } = (await request(
-        `/api/v1/find-minimal?inputNumber=${value}`
+        `/api/v1/find?inputNumber=${value}`
       )) as models.ApiResponse<number>;
-      setResult(data!);
+      setResult(`Highest prime number lower than ${value} is: ${data}`);
     } catch (e) {
       const err = e as ApiError;
       setError(err.message);
@@ -38,7 +39,8 @@ export default function Home() {
         <h1 className="m-0 text-center text-6xl">Welcome to Primer!</h1>
 
         <p className="my-4 text-center text-xl">
-          Find the highest prime number lower than the input number below
+          {result ||
+            'Find the highest prime number lower than the input number below'}
         </p>
 
         <div className="flex flex-col items-center">
@@ -52,17 +54,17 @@ export default function Home() {
               onChange={handleChange}
               min="2"
               max="9007199254740991"
+              step="1"
             />
             <button
-              className="ml-4 rounded border px-2"
-              disabled={loading}
+              className="ml-4 mb-2 rounded border px-2 disabled:cursor-not-allowed disabled:text-gray-300"
+              disabled={loading || !value}
               onClick={findHighestPrimer}
             >
               Find!
             </button>
           </div>
-          {result > 0 && <div className="mt-2">Result: {result}</div>}
-          {error && <div className="mt-2 text-red-500">Error: {error}</div>}
+          <div className={error ? 'text-red-500 text-xs' : 'invisible'}>Error: {error}</div>
         </div>
       </main>
     </div>
