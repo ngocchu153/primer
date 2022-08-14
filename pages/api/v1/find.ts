@@ -3,12 +3,43 @@ import { sieveService } from 'services';
 import logger from 'services/logger';
 import { findLargestPrime } from 'utils';
 
+/**
+ * @swagger
+ * /api/v1/find:
+ *   get:
+ *     description: Returns largest prime number less than input
+ *     parameters:
+ *       - in: query
+ *         name: input
+ *         schema:
+ *           type: integer
+ *           description: The number you want to find largest prime right below it
+ *     responses:
+ *       200:
+ *         description: Successfully find the output
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: number
+ *       400:
+ *         description: Bad Input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<models.ApiResponse<number>>
 ) {
-  const { inputNumber } = req.query;
-  const number = parseInt(inputNumber as string, 10);
+  const { input } = req.query;
+  const number = parseInt(input as string, 10);
   logger.info(`Input number: ${number}`);
   if (!number || number < 2 || number > 9007199254740991) {
     const message =

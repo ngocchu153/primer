@@ -17,7 +17,7 @@ export default function Home() {
     setError('');
     try {
       const { data } = (await request(
-        `/api/v1/find?inputNumber=${value}`
+        `/api/v1/find?input=${value}`
       )) as models.ApiResponse<number>;
       setResult(`Highest prime number lower than ${value} is: ${data}`);
     } catch (e) {

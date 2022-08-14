@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "next": "latest",
+    "next-swagger-doc": "^0.3.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "swagger-ui-react": "^4.13.2",
     "winston": "3.8.1",
     "winston-daily-rotate-file": "4.7.1"
   },
@@ -20,6 +22,7 @@
     "@testing-library/react": "13.3.0",
     "@testing-library/user-event": "14.4.3",
     "@types/react": "18.0.9",
+    "@types/swagger-ui-react": "^4.11.0",
     "autoprefixer": "10.4.8",
     "eslint": "8.21.0",
     "eslint-config-next": "12.2.5",
