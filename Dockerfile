@@ -20,7 +20,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
 RUN yarn global add pm2
-RUN chown node:node /app/logs
+RUN mkdir -p /app/logs && chown node:node /app/logs
 USER node
 EXPOSE 3000
 CMD ["pm2-runtime", "start", "ecosystem.config.js"]
