@@ -1,12 +1,13 @@
 import request from 'utils/request';
 
 describe('Request Utils', () => {
+  const originalFetch = global.fetch;
   beforeAll(() => {
     global.fetch = jest.fn(() => Promise.resolve({} as Response));
   });
   afterAll(() => {
     jest.clearAllMocks();
-    delete global.fetch;
+    global.fetch = originalFetch;
   });
 
   test('Should return data when response is ok', async () => {
