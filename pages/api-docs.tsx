@@ -1,11 +1,17 @@
+/* eslint-disable */
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createSwaggerSpec } from 'next-swagger-doc';
-import dynamic from 'next/dynamic';
+import dynamic, { DynamicOptions } from 'next/dynamic';
 import 'swagger-ui-react/swagger-ui.css';
 
-const SwaggerUI = dynamic<{
+type DynamicType = {
   spec: Record<string, any>;
-}>(import('swagger-ui-react'), { ssr: false });
+};
+
+const SwaggerUI = dynamic<DynamicType>(
+  import('swagger-ui-react') as unknown as DynamicOptions<DynamicType>,
+  { ssr: false }
+);
 
 function ApiDoc({ spec }: InferGetStaticPropsType<typeof getStaticProps>) {
   return <SwaggerUI spec={spec} />;
