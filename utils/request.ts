@@ -10,9 +10,9 @@ type ParsedResponse<T = undefined> = {
  *
  * @return {Promise<ParsedResponse>}          The parsed JSON from the request
  */
-function parseJSON(response: Response): Promise<ParsedResponse> {
+function parseJSON<T>(response: Response): Promise<ParsedResponse<T>> {
   return new Promise((resolve) =>
-    response.json().then((json: models.ApiResponse) =>
+    response.json().then((json: models.ApiResponse<T>) =>
       resolve({
         status: response.status,
         data: json,
@@ -29,10 +29,13 @@ function parseJSON(response: Response): Promise<ParsedResponse> {
  *
  * @return {Promise<void | models.ApiResponse<any>} The response data
  */
-export default function request(url: string, options?: RequestInit) {
+export default function request<T>(
+  url: string,
+  options?: RequestInit
+): Promise<models.ApiResponse<T>> {
   return new Promise((resolve, reject) => {
     fetch(url, options)
-      .then(parseJSON)
+      .then((res) => parseJSON<T>(res))
       .then((response) => {
         if (response.status < 400) {
           return resolve(response.data);

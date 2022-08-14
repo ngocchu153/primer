@@ -1,4 +1,4 @@
-import { isObviouslyNotPrime } from 'utils';
+import { isObviouslyNotPrime } from 'utils/prime';
 import logger from './logger';
 
 export class SieveService {
@@ -38,7 +38,7 @@ export class SieveService {
     if (lessThan > this.limit || lessThan < 3) {
       return -1;
     }
-    for (let i = lessThan; i >= 2; i--) {
+    for (let i = lessThan - 1; i >= 2; i--) {
       if (isObviouslyNotPrime(i)) continue;
       if (this.sieve[i] === true) return i;
     }

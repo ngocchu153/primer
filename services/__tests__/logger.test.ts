@@ -1,13 +1,12 @@
 import mockedWinston from '__mocks__/winstons.mock';
-import logger from 'services/logger';
+import logger from '../logger';
 
 jest.mock('winston', () => mockedWinston);
 
 describe('logger', () => {
-  afterAll(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
 
-  test('Should return -1 when input is invalid', () => {
-    // const logger = require('services/logger');
+  test('should create on called', () => {
     logger.info('should work');
     expect(mockedWinston.createLogger).toBeCalledTimes(1);
   });

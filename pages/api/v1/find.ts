@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { sieveService } from 'services';
 import logger from 'services/logger';
-import { findLargestPrime } from 'utils';
+import { findLargestPrime } from 'utils/prime';
 
 /**
  * @swagger
