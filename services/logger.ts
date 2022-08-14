@@ -34,9 +34,9 @@ const getLogger = () => {
     transports: [consoleTransport],
   });
 
-  // if (process.env.NODE_ENV === 'production') {
-  logger.add(fileLogTransport);
-  // }
+  if (process.env.NODE_ENV === 'production') {
+    logger.add(fileLogTransport);
+  }
 
   return logger;
 };
