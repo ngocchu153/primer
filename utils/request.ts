@@ -39,10 +39,10 @@ export default function request(url: string, options?: RequestInit) {
         }
         return reject(response.data);
       })
-      .catch((error) =>
+      .catch((error) => {
         reject({
           networkError: error.message,
-        })
-      );
+        });
+      });
   });
 }

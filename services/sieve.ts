@@ -1,4 +1,5 @@
 import { isObviouslyNotPrime } from 'utils';
+import logger from './logger';
 
 export class SieveService {
   private sieve: Array<boolean>;
@@ -8,7 +9,7 @@ export class SieveService {
   }
 
   private buildSieve(): Array<boolean> {
-    console.log(`Building Eratosthenes seive, limit = ${this.limit}`);
+    logger.info(`Building Eratosthenes seive, limit = ${this.limit}`);
     const start = performance.now();
     const isPrimeSieve = Array(this.limit).fill(true);
     isPrimeSieve[0] = false;
@@ -22,7 +23,7 @@ export class SieveService {
       }
     }
     const timeTaken = performance.now() - start;
-    console.log(`Done building. Took ${timeTaken} milisec`);
+    logger.info(`Done building. Took ${timeTaken} milisec`);
     return isPrimeSieve;
   }
 
