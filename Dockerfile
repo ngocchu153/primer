@@ -13,7 +13,7 @@ FROM node:16-alpine as runner
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=builder /app/ecosystem.config.js ./ecosystem.config.js
-COPY --from=builder /app/server.js ./server.js
+COPY --from=builder /app/dist/ ./dist
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules

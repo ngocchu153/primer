@@ -1,2 +1,2 @@
-export const SIEVE_LIMIT = 1000000;
+export const DEFAULT_SIEVE_LIMIT = 1000000;
 export const MAX_INT = 9007199254740991;

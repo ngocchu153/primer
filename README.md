@@ -23,7 +23,7 @@ Tradeoffs and design decisions:
 
 - The requirements is using TypeScript and ReactJS, with the basic use case of input a number and get the result. Therefore, I decided to go with NextJS which have everything I need.
 - Algorithm:
-  - Build an Eratosthenes seive to store whether a number in range of 0 to $10^6$ on runtime and store in server memory.
+  - Build an Eratosthenes sieve to store whether a number in range of 0 to $10^6$ on runtime and store in server memory.
   - The array of $10^6$ + 1 element is relatively cheap and fast to build. Bring it to Redis may be slower due to network parsing process, and also the cost of maintaining and monitoring.
   - When the input number is larger than $10^6$ and smaller than $10^{53}$ - 1, fallback to use the algorithm with complexity O(k\*$\sqrt{n}$) with `n` is the input and `k` is constant.
 - FrontEnd:

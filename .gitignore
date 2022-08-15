@@ -40,4 +40,4 @@ logs
 
 .vscode
 
-server.js
+dist

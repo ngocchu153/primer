@@ -1,8 +1,8 @@
-import { MAX_INT } from 'consts';
+import { DEFAULT_SIEVE_LIMIT, MAX_INT } from 'consts';
+import { Request } from 'express';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { sieveService } from 'services';
 import logger from 'services/logger';
-import { findLargestPrime } from 'utils/prime';
+import { findLargestPrime, findLargestPrimeInSieve } from 'utils/prime';
 
 /**
  * @swagger
@@ -36,7 +36,7 @@ import { findLargestPrime } from 'utils/prime';
  *                   type: string
  */
 export default function handler(
-  req: NextApiRequest,
+  req: NextApiRequest & Request,
   res: NextApiResponse<models.ApiResponse<number>>
 ) {
   const { input } = req.query;
@@ -48,14 +48,19 @@ export default function handler(
     return res.status(400).json({ message });
   }
 
-  if (number < 1000000) {
-    logger.info('Looking up in seive...');
-    const data = sieveService.findLargestPrime(number);
+  if (number < DEFAULT_SIEVE_LIMIT) {
+    logger.info('Looking up in sieve...');
+    const { sieve } = req.app.locals;
+    const data = findLargestPrimeInSieve(number, sieve);
     if (data > 0) {
-      logger.info(`Found in seive: ${data}`);
+      logger.info(`Found in sieve: ${data}`);
       res.setHeader('Cache-control', 'public, max-age=31536000');
       return res.status(200).json({ data });
     }
+
+    const message = `Not found prime number less than ${number}!`;
+    logger.error(`[Sieve] ${message}`);
+    return res.status(404).json({ message });
   }
 
   logger.info('Find Largest Prime (naive)...');
@@ -65,7 +70,7 @@ export default function handler(
     return res.status(200).json({ data });
   }
 
-  const message = `Not found highest prime number less than ${number}!`;
+  const message = `Not found prime number less than ${number}!`;
   logger.error(message);
   return res.status(404).json({ message });
 }

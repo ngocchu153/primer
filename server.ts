@@ -1,9 +1,11 @@
 import express from 'express';
 import next from 'next';
 import rateLimit from 'express-rate-limit';
+import { buildSieve } from './utils/prime';
 
 const MAX_REQUESTS = 100;
 const RATE_LIMIT_TIMEFRAME = 10;
+
 const apiLimiter = rateLimit({
   windowMs: RATE_LIMIT_TIMEFRAME * 60 * 1000, // 10 minutes
   max: MAX_REQUESTS, // Limit each IP to 100 requests per windowsMs
@@ -16,7 +18,7 @@ const apiLimiter = rateLimit({
   },
 });
 
-const port = parseInt(process.env.PORT ?? '', 10) || 3000;
+const port = parseInt(process.env.PORT ?? '3000', 10);
 const hostname = 'localhost';
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -25,6 +27,8 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
+
+  server.locals.sieve = buildSieve();
 
   server.use('/api/v1', apiLimiter);
 
