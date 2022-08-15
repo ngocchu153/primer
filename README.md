@@ -10,11 +10,11 @@
   <p align="center">
     A web application to find largest prime number less than user input interger
     <br />
-    <a href="http://209.97.171.71:3000/api-docs"><strong>Explore API docs »</strong></a>
+    <a href="https://primer.ngocchu.dev/api-docs"><strong>Explore API docs »</strong></a>
   </p>
 </div>
 
-[![Product Name Screen Shot][product-screenshot]](http://209.97.171.71:3000/)
+[![Product Name Screen Shot][product-screenshot]](https://primer.ngocchu.dev)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -87,8 +87,8 @@ You shall install these on your local machine:
 
 ## Future works
 
+- [x] Config NGIИX & map current IP to a proper domain
 - [ ] Benmark current solution vs using worker threads
-- [ ] Config NGIИX & map current IP to a proper domain
 - [ ] Add e2e testing
 - [ ] Add tracing & metric
 - [ ] Multi-language support with i18n
@@ -99,7 +99,7 @@ You shall install these on your local machine:
 
 ## Contact
 
-Ngoc Chu - [LinkedIn](https://linkedin.com/in/ngocchu153)
+Ngoc Chu - [LinkedIn][linkedin-url]
 
 <br/>
 
