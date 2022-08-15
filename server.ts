@@ -1,23 +1,23 @@
-const express = require('express');
-const next = require('next');
-const rateLimit = require('express-rate-limit');
+import express from 'express';
+import next from 'next';
+import rateLimit from 'express-rate-limit';
 
 const MAX_REQUESTS = 100;
 const RATE_LIMIT_TIMEFRAME = 10;
-
 const apiLimiter = rateLimit({
   windowMs: RATE_LIMIT_TIMEFRAME * 60 * 1000, // 10 minutes
   max: MAX_REQUESTS, // Limit each IP to 100 requests per windowsMs
   standardHeaders: true,
   legacyHeaders: false,
   message: async () => {
-    return ({ message: `You can only make ${MAX_REQUESTS} requests every ${RATE_LIMIT_TIMEFRAME} minutes.` })
+    return {
+      message: `You can only make ${MAX_REQUESTS} requests every ${RATE_LIMIT_TIMEFRAME} minutes.`,
+    };
   },
-})
+});
 
-
-const port = parseInt(process.env.PORT, 10) || 3000;
-const hostname = 'localhost'
+const port = parseInt(process.env.PORT ?? '', 10) || 3000;
+const hostname = 'localhost';
 const dev = process.env.NODE_ENV !== 'production';
 
 const app = next({ dev, hostname, port });
@@ -32,8 +32,7 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(port, (error) => {
-    if (error) throw error;
+  server.listen(port, () => {
     console.info(`> Ready on http://${hostname}:${port}`);
   });
 });
