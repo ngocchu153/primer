@@ -8,7 +8,6 @@ import {
 } from '@testing-library/react';
 import PrimeForm from '@/components/PrimeForm';
 import * as requestContainer from '../../utils/request';
-import { MAX_INT } from 'consts';
 
 jest.mock('../../utils/request', () => {
   return {
@@ -61,12 +60,12 @@ describe('PrimeForm', () => {
 
     const input = screen.getByRole('input-number');
     fireEvent.change(input, {
-      target: { value: MAX_INT + 10 },
+      target: { value: Number.MAX_SAFE_INTEGER + 10 },
     });
 
     await waitFor(() => {
       expect(
-        screen.getByText(`Your input should be less than ${MAX_INT}`)
+        screen.getByText(`Your input should be less than ${Number.MAX_SAFE_INTEGER}`)
       ).toBeInTheDocument();
     });
   });

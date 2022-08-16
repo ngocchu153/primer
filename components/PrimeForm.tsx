@@ -2,7 +2,6 @@ import { useState } from 'react';
 import request from 'utils/request';
 import { ApiError } from 'next/dist/server/api-utils';
 import { useForm } from 'react-hook-form';
-import { MAX_INT } from 'consts';
 import Button from './Button';
 import { faCalculator } from '@fortawesome/free-solid-svg-icons';
 import Icon from './Icon';
@@ -58,8 +57,8 @@ function PrimeForm({ className, ...props }: FormProps) {
             message: 'Your input should be greater or equal than 3',
           },
           max: {
-            value: MAX_INT,
-            message: `Your input should be less than ${MAX_INT}`,
+            value: Number.MAX_SAFE_INTEGER,
+            message: `Your input should be less than ${Number.MAX_SAFE_INTEGER}`,
           },
         })}
       />

@@ -1,4 +1,4 @@
-import { DEFAULT_SIEVE_LIMIT, MAX_INT } from 'consts';
+import { DEFAULT_SIEVE_LIMIT } from 'consts';
 import { Request } from 'express';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import logger from 'services/logger';
@@ -42,8 +42,8 @@ export default function handler(
   const { input } = req.query;
   const number = parseInt(input as string, 10);
   logger.info(`Input number: ${number}`);
-  if (!number || number < 2 || number > MAX_INT) {
-    const message = `This program only support input from 3 to ${MAX_INT} (2^53 - 1)`;
+  if (!number || number < 2 || number > Number.MAX_SAFE_INTEGER) {
+    const message = `This program only support input from 3 to ${Number.MAX_SAFE_INTEGER} (2^53 - 1)`;
     logger.error(message);
     return res.status(400).json({ message });
   }

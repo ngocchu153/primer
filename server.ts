@@ -11,11 +11,7 @@ const apiLimiter = rateLimit({
   max: MAX_REQUESTS, // Limit each IP to 100 requests per windowsMs
   standardHeaders: true,
   legacyHeaders: false,
-  message: async () => {
-    return {
-      message: `You can only make ${MAX_REQUESTS} requests every ${RATE_LIMIT_TIMEFRAME} minutes.`,
-    };
-  },
+  message: `You can only make ${MAX_REQUESTS} requests every ${RATE_LIMIT_TIMEFRAME} minutes.`,
 });
 
 const port = parseInt(process.env.PORT ?? '3000', 10);
