@@ -48,6 +48,7 @@ export default function handler(
     return res.status(400).json({ message });
   }
 
+   // find the result in pre-built sieve if input is in range
   if (number < DEFAULT_SIEVE_LIMIT) {
     logger.info('Looking up in sieve...');
     const { sieve } = req.app.locals;
@@ -63,7 +64,8 @@ export default function handler(
     return res.status(404).json({ message });
   }
 
-  logger.info('Find Largest Prime (naive)...');
+   // find the result using O(k*sqrt(n)) algorithm
+   logger.info('Find Largest Prime (naive)...');
   const data = findLargestPrime(number);
   if (data > 0) {
     res.setHeader('Cache-control', 'public, max-age=31536000');
